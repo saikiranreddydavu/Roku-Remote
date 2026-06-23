@@ -1,0 +1,102 @@
+{
+  "name": "roku-remote",
+  "displayName": "Roku Remote",
+  "description": "Control your Roku device from within VS Code with a fully interactive remote UI.",
+  "version": "0.1.0",
+  "publisher": "Saikiranreddydavu",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "roku",
+    "remote",
+    "ecp",
+    "tv",
+    "streaming"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "icon": "media/icon.png",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "roku-remote",
+          "title": "Roku Remote",
+          "icon": "media/remote.svg"
+        }
+      ]
+    },
+    "views": {
+      "roku-remote": [
+        {
+          "type": "webview",
+          "id": "rokuRemote.view",
+          "name": "Remote"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "rokuRemote.discover",
+        "title": "Roku Remote: Discover Devices",
+        "icon": "$(search)"
+      },
+      {
+        "command": "rokuRemote.setDeviceIp",
+        "title": "Roku Remote: Set Device IP Address",
+        "icon": "$(plug)"
+      },
+      {
+        "command": "rokuRemote.focus",
+        "title": "Roku Remote: Open Remote"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "rokuRemote.discover",
+          "when": "view == rokuRemote.view",
+          "group": "navigation"
+        },
+        {
+          "command": "rokuRemote.setDeviceIp",
+          "when": "view == rokuRemote.view",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Roku Remote",
+      "properties": {
+        "rokuRemote.deviceIp": {
+          "type": "string",
+          "default": "",
+          "description": "IP address of the Roku device to control (e.g. 192.168.1.42)."
+        },
+        "rokuRemote.requestTimeoutMs": {
+          "type": "number",
+          "default": 4000,
+          "description": "Timeout in milliseconds for ECP requests to the Roku device."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "tsc --noEmit -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.75.0",
+    "typescript": "^5.4.0",
+    "@vscode/vsce": "^2.11.0"
+  }
+}
